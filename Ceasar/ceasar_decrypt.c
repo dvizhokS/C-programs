@@ -10,25 +10,37 @@ int main(int argc, char** argv){
 	char plaintext[LEN_TEXT];
 	char ciphertext[LEN_TEXT];
 	int i,n;
-
-	printf("ciphertext: ");
-	gets(ciphertext);
 	
-	n = strlen(ciphertext);
-	
-	for(int key = 1; key <= 26; key++){
-		for(i = 0; i < n; i++){
-			if(ciphertext[i] >= 'a' && ciphertext[i] <= 'z'){
-				plaintext[i] = (ciphertext[i] - 'a' + key) % 26 + 'a';
-			}else if(ciphertext[i] >= 'A' && ciphertext[i] <= 'Z'){
-				plaintext[i] = (ciphertext[i] - 'A' + key) % 26 + 'A';
-			}else{
-				plaintext[i] = ciphertext[i];
+	if(argc != 2){
+		printf("Sorry! not have 2 arguments!\n");
+		return 1;
+	}else{
+		for(int i = 0, n = strlen(argv[1]); i < n; i++){
+			if(argv[1][i] < '0' || argv[1][i] > '9'){
+				printf("Second argument not number!\n");
+				return 2;
 			}
 		}
-		plaintext[i] = '\0';
-		
-		printf("key = %i   text = %s\n\n",key, plaintext);	
+		key = atoi(argv[1]);
 	}
+		
+	printf("ciphertext: ");
+	gets(ciphertext);
+	printf("plaintext: ");
+	
+	
+	
+	for(i = 0, n = strlen(ciphertext); i < n; i++){
+		if(ciphertext[i] >= 'a' && ciphertext[i] <= 'z'){
+			plaintext[i] = (ciphertext[i] - 'a' + 26 - key) % 26 + 'a';
+		}else if(ciphertext[i] >= 'A' && ciphertext[i] <= 'Z'){
+			plaintext[i] = (ciphertext[i] - 'A' + 26 - key) % 26 + 'A';
+		}else{
+			plaintext[i] = ciphertext[i];
+		}
+	}
+	plaintext[i] = '\0';
+	
+	printf("%s\n", plaintext);
 	
 }
