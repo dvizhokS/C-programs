@@ -37,26 +37,26 @@ int main(int argc, char** argv){
 		keys[i] = shift(keyword[i]);
 	}
 
-	printf("plaintext: ");
-	gets(plaintext);
 	printf("ciphertext: ");
+	gets(ciphertext);
+	printf("plaintext: ");
 	
-	for(i = 0, j = 0, n = strlen(plaintext); i < n; i++){
+	for(i = 0, j = 0, n = strlen(ciphertext); i < n; i++){
 		if(j >= len_key){
 			j = 0;
 		}
 
-		if(plaintext[i] >= 'a' && plaintext[i] <= 'z'){
-			ciphertext[i] = (plaintext[i] - 'a' + keys[j++]) % 26 + 'a';
-		}else if(plaintext[i] >= 'A' && plaintext[i] <= 'Z'){
-			ciphertext[i] = (plaintext[i] - 'A' + keys[j++]) % 26 + 'A';
+		if(ciphertext[i] >= 'a' && ciphertext[i] <= 'z'){
+			plaintext[i] = (ciphertext[i] - 'a' + 26 - keys[j++]) % 26 + 'a';
+		}else if(ciphertext[i] >= 'A' && ciphertext[i] <= 'Z'){
+			plaintext[i] = (ciphertext[i] - 'A' + 26 - keys[j++]) % 26 + 'A';
 		}else{
-			ciphertext[i] = plaintext[i];
+			plaintext[i] = ciphertext[i];
 		}
 	}
-	ciphertext[i] = '\0';
+	plaintext[i] = '\0';
 	
-	printf("%s\n", ciphertext);
+	printf("%s\n", plaintext);
 	
 }
 
